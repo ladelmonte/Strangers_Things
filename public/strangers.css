@@ -8,7 +8,7 @@ html {
     
 }
 
-header {
+.header {
     display: flex;
     padding-top: 5px;
     padding-bottom: 15px;
@@ -26,10 +26,10 @@ header {
     text-shadow: 1px 1px 4px rgb(4, 37, 59);
 }
 
-.links {
+#links {
     display: flex;
     flex-direction: row;
-    width: 60%;
+    width: 40%;
     justify-content: space-evenly;
     padding-left: 50%;
 }
@@ -48,4 +48,23 @@ footer {
     position: fixed;
     bottom: 0;   
     width: 100%;
+}
+
+.postCards {
+    display: flex;
+}
+
+.postCard {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    text-align: center;
+    border: 2px;
+    border-style: solid;
+    margin: 5px;
+    height: 300px;
+}
+
+.titles {
+    text-align: center;
 }
