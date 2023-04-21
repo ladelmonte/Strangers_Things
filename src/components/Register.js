@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import { fetchUser } from "../api/api";
-
+import { useNavigate } from "react-router-dom";
 
 const Register = ({setToken}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate();
 
     async function handleSubmit (event) {
         event.preventDefault();
@@ -19,6 +20,7 @@ const Register = ({setToken}) => {
     if (results.success) {
         setToken(results.data.token);
         window.localStorage.setItem("token: ", results.data.token)
+        navigate("/")
     }
     }
 

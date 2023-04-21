@@ -25,8 +25,6 @@ const App = () => {
   console.log("token: ", token)
 
 
-  useEffect (() => {
-
     const getPosts = async() => {
         try {
             const result = await fetchPosts(posts)
@@ -35,9 +33,11 @@ const App = () => {
             console.error(" ERROR AT APP USEEFFECT")
         }
     };
+    
+ 
+  useEffect(() => {
     getPosts();
-  }, [])
-  
+  }, [token])
 
   const Pages = () => {
 
@@ -62,8 +62,6 @@ const App = () => {
           <Link to="/loggedout" id="link" onClick={() => {
             setToken(null)
             window.localStorage.removeItem("token: ", token)
-
-
           }}>Log Out</Link>
       </>    
     )}
@@ -90,7 +88,7 @@ const App = () => {
     <Route exact path="/register" element={<Register token={token} setToken={setToken}/>} />
   </Route>
   <Route exact path="/createpost">
-    <Route exact path="/createpost" element={<CreatePost />} />
+    <Route exact path="/createpost" element={<CreatePost token={token} getPosts={getPosts} />} />
   </Route>
   <Route exact path="/loggedout">
     <Route exact path="/loggedout" element={<Logout setToken={setToken} />} />

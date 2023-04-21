@@ -13,6 +13,7 @@ const Posts = ({posts}) => {
             return <div key={post._id} className="postCard">
                 <h2>{post.title}</h2>
                 <p>{post.description}</p>
+                <p>Price: {post.price}</p>
                 </div>
          })}
          </div>
