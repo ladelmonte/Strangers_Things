@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import { makePost } from "../api/api";
-import { Link } from "react-router-dom";
 
 
 

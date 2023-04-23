@@ -1,11 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { login } from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { myData } from "../api/api";
 
-function Login({ setToken }) {
+function Login({ setToken, getId }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-const navigate = useNavigate();
+
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -16,7 +18,9 @@ const navigate = useNavigate();
     if (results.success) {
       setToken(results.data.token);
       window.localStorage.setItem("token: ", results.data.token);
-      navigate("/")
+      navigate("/");
+      const result = await myData(results.data.token);
+      return result;
     }
   }
 
