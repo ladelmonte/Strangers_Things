@@ -53,6 +53,8 @@ footer {
 
 .postCards {
   display: flex;
+  flex-direction: column;
+  
 }
 
 .postCard {

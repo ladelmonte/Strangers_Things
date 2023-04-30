@@ -9,30 +9,37 @@ import {
   Login,
   Logout,
   Delete,
+  Inbox,
+  Message,
+  UpdatePost,
 } from "./components";
-import { fetchPosts, fetchUser, myData } from "./api/api";
+import { fetchPosts, myData } from "./api/api";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState("");
+  const [userData, setUserData] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [post, setPost] = useState("");
 
-  function tokenCheck() {
-    if (window.localStorage.getItem("token")) {
-      setToken(window.localStorage.getItem("token"));
+  const tokenCheck = () => {
+    {
+      window.localStorage.getItem("token: ")
+        ? setToken(window.localStorage.getItem("token: "), setIsLoggedIn(true))
+        : null;
     }
-  }
+  };
 
   useEffect(() => {
     tokenCheck();
   }, []);
-
 
   const getPosts = async () => {
     try {
       const result = await fetchPosts(token);
       setPosts(result);
     } catch (error) {
-      console.error(" ERROR AT APP USEEFFECT");
+      console.error(" ERROR AT getPosts");
     }
   };
 
@@ -40,6 +47,19 @@ const App = () => {
     getPosts();
   }, [token]);
 
+  const getMyData = async () => {
+    try {
+      const result = await myData(token);
+      setUserData(result.data);
+      console.log(result.data);
+    } catch (error) {
+      console.error("Error At getMyInfo");
+    }
+  };
+
+  useEffect(() => {
+    getMyData();
+  }, [token]);
 
   const Pages = () => {
     return (
@@ -54,7 +74,6 @@ const App = () => {
             <Link to="/posts" id="link">
               Posts
             </Link>
-            {/* <Link to="/profile" id="link">Profile</Link> */}
 
             {token ? null : (
               <>
@@ -70,6 +89,9 @@ const App = () => {
               <>
                 <Link to="/createpost" id="link">
                   CreatePost
+                </Link>
+                <Link to="/inbox" id="link">
+                  Inbox
                 </Link>
                 <Link
                   to="/loggedout"
@@ -101,16 +123,29 @@ const App = () => {
             <Route
               exact
               path="/posts"
-              element={<Posts posts={posts} token={token} />}
+              element={
+                <Posts
+                  posts={posts}
+                  token={token}
+                  getPosts={getPosts}
+                  isLoggedIn={isLoggedIn}
+                  setPost={setPost}
+                />
+              }
+            />
+          </Route>
+          <Route exact path="/inbox">
+            <Route
+              exact
+              path="/inbox"
+              element={<Inbox userData={userData} />}
             />
           </Route>
           <Route exact path="/login">
             <Route
               exact
               path="/login"
-              element={
-                <Login token={token} setToken={setToken} />
-              }
+              element={<Login token={token} setToken={setToken} />}
             />
           </Route>
           <Route exact path="/register">
@@ -135,10 +170,22 @@ const App = () => {
             />
           </Route>
           <Route exact path="/deletedpost">
+            <Route exact path="/deletedpost" element={<Delete />} />
+          </Route>
+          <Route exact path={`/posts/:postId`}>
             <Route
               exact
-              path="/deletedpost"
-              element={<Delete />}
+              path={`:postId`}
+              element={<Message post={post} token={token} />}
+            />
+          </Route>
+          <Route exact path={"/update-post/:postId"}>
+            <Route
+              exact
+              path={"/update-post/:postId"}
+              element={
+                <UpdatePost posts={posts} token={token} getPosts={getPosts} />
+              }
             />
           </Route>
         </Routes>

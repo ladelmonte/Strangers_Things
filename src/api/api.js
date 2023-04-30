@@ -13,7 +13,7 @@ export const fetchPosts = async (token) => {
     }); /// ADD HEADERS, CONTENT TYPE AND TOKEN
     const data = await response.json();
     const posts = data.data.posts;
-    console.log("posts:", posts);
+    // console.log("posts:", posts);
     return posts;
   } catch (error) {
     throw error;
@@ -88,13 +88,7 @@ export const myData = async (token) => {
       },
     });
     const result = await response.json();
-    // const user = result.data.username
     console.log(result);
-
-    const user = result.data.username;
-    const userId = result.data._id;
-    console.log(user);
-    console.log(userId);
     return result;
   } catch (err) {
     console.error(err);
@@ -109,6 +103,45 @@ export const deletePost = async (token, postId) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const postMessage = async (postID, token, message) => {
+  try {
+    const response = await fetch(`${BASE_URL}/posts/${postID}/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        message,
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updatePost = async (postID, token, updatedPost) => {
+  try {
+    const response = await fetch(`${BASE_URL}/posts/${postID}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        post: updatedPost,
+      }),
     });
     const result = await response.json();
     console.log(result);
