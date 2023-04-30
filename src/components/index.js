@@ -8,3 +8,4 @@ export { default as Delete } from "./Delete";
 export { default as Inbox } from "./Inbox";
 export { default as Message } from "./Messages";
 export { default as UpdatePost } from "./UpdatePost";
+export {default as Search} from "./Search"

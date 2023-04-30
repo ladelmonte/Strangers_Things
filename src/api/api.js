@@ -88,7 +88,7 @@ export const myData = async (token) => {
       },
     });
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (err) {
     console.error(err);
@@ -150,3 +150,8 @@ export const updatePost = async (postID, token, updatedPost) => {
     console.error(err);
   }
 };
+
+// export const fetchQueryResults = async (query) => {
+
+//   const url = `${BASE_URL}/posts`
+// }

@@ -21,6 +21,7 @@ const App = () => {
   const [userData, setUserData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [post, setPost] = useState("");
+  
 
   const tokenCheck = () => {
     {
@@ -51,7 +52,7 @@ const App = () => {
     try {
       const result = await myData(token);
       setUserData(result.data);
-      console.log(result.data);
+      // console.log(result.data);
     } catch (error) {
       console.error("Error At getMyInfo");
     }
