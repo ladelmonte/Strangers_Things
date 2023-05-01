@@ -33,14 +33,16 @@ const Posts = ({ posts, token, getPosts, isLoggedIn, setPost }) => {
     <>
       <h1 className="titles"> Lists of Posts</h1>
 
+    <div className="searchBar">
       <input
           id="keywords"
           type="text"
+          className="search"
           placeholder="enter keywords..."
           value={queryString}
           onChange= {handleChange}
         />
-
+</div>
         {queryString.length ? (
           <Search posts={posts} queryString={queryString} isLoggedIn={isLoggedIn}/>
             ) : (
@@ -52,6 +54,7 @@ const Posts = ({ posts, token, getPosts, isLoggedIn, setPost }) => {
               <h2>{post.title}</h2>
               <p>{post.description}</p>
               <p>Price: {post.price}</p>
+              <p>Will Deliver? {post.willDeliver ? "Yes" : "No"}</p>
               <p>
                 {post.isAuthor === true ? (
                   <>

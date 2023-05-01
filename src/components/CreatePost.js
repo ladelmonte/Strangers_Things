@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { makePost } from "../api/api";
 
+import { useNavigate } from "react-router-dom";
+
+const navigate = useNavigate
+
 const CreatePost = ({ token, getPosts }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,6 +19,7 @@ const CreatePost = ({ token, getPosts }) => {
 
     if (results.success) {
       getPosts();
+      navigate("/posts")
     }
   }
 
